@@ -92,3 +92,20 @@ Thay `openrouter` bằng `openai`, `anthropic` hoặc `gemini` khi dùng provide
 Buổi học: **17:30–21:00**. 17:30–17:40 giới thiệu, 17:40–17:50 Kahoot, 17:50–20:25 làm nhóm, 20:25–21:00 demo. Mốc kiểm tra tại lớp là 20:25; xem [CHECKPOINTS.md](CHECKPOINTS.md).
 
 Hạn mặc định là **23:59 ngày học, Asia/Ho_Chi_Minh (UTC+07:00)**. Xem [SUBMISSION.md](SUBMISSION.md) và [RULES.md](RULES.md) để biết bản chốt và quy định nộp muộn.
+
+## Khởi chạy giao diện Chat UI (Streamlit)
+
+Giao diện chat tương tác hỗ trợ quan sát trạng thái runtime, lịch sử gọi công cụ (tool call), tham số đầu vào (arguments), kết quả thực thi và tính năng lưu transcript minh chứng.
+
+1. Cài đặt Streamlit vào môi trường ảo hiện tại (không thay đổi `requirements.txt` gốc):
+```powershell
+pip install streamlit
+
+```
+
+2. Khởi chạy ứng dụng từ thư mục `starter_v0`:
+
+```powershell
+streamlit run app_ui.py
+
+```
