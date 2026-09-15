@@ -30,11 +30,11 @@ tools:
       required: [service]
 
   - name: inspect_device
-    description: "Kiểm tra thông tin và chẩn đoán thiết bị."
+    description: "Kiểm tra thông tin và chẩn đoán một thiết bị cụ thể. Nếu có nhiều thiết bị cần kiểm tra hoặc so sánh, phải gọi công cụ này nhiều lần tương ứng với từng asset_id riêng biệt."
     parameters:
       type: object
       properties:
-        asset_id: {type: string, description: "Mã tài sản"}
+        asset_id: {type: string, description: "Mã tài sản duy nhất (ví dụ: LT-204, DT-031)"}
         check: {type: string, enum: [all, network, vpn, security, hardware, software], default: "all", description: "Nhóm kiểm tra"}
       required: [asset_id]
 
