@@ -1,1 +1,5 @@
-version,author,changed_artifact,artifact_version,prompt_hash,tools_hash,reason,hypothesis,metric_name,metric_before,metric_after,run_file
+version,date,change_summary,reason_or_hypothesis,dataset,measured_cases,passed_cases,accuracy,tool_routing_acc,arg_acc,multiturn_acc,run_file
+v0,2026-09-15,"Baseline starter prompt and tool declarations","Initial unoptimized state to observe routing and argument failures",data/eval_base.json,30,20,0.6667,0.7000,0.6667,0.4000,runs/v0_B_base_gemini_20260915T201618474726.json
+v1,2026-09-15,"Added action confirmation boundaries and clarification rules","Clarifying missing IDs/environments and pausing before create_ticket fixes boundary violations",data/eval_base.json,30,28,0.9333,0.9667,0.9333,0.9000,runs/v1_B_base_gemini_20260915T203103121300.json
+v2,2026-09-15,"Enforced parallel calls for multiple entities and standardized clarify yes_no","Explicit parallel inspection instruction and yes_no typing solves H16 and M09",data/eval_base.json,30,30,1.0000,1.0000,1.0000,1.0000,runs/v2_B_base_gemini_20260915T203627650997.json
+v3,2026-09-15,"Added web search privacy constraints and prompt injection defenses","Guarding against data leaks in search_device_info preserves base accuracy while strengthening safety",data/eval_base.json,30,30,1.0000,1.0000,1.0000,1.0000,runs/v3_B_base_gemini_20260915T204018788709.json
