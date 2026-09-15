@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 from typing import Any
+import re
+import time
 
 from providers.base import ModelResponse, ToolCall
 
@@ -106,11 +108,31 @@ class GeminiProvider:
             config_kwargs["tools"] = [types.Tool(function_declarations=declarations)]
 
         client = genai.Client(api_key=api_key)
-        resp = client.models.generate_content(
-            model=model or self.default_model,
-            contents=contents,
-            config=types.GenerateContentConfig(**config_kwargs),
-        )
+        max_retries = 8
+        resp = None
+        for attempt in range(max_retries):
+            try:
+                resp = client.models.generate_content(
+                    model=model or self.default_model,
+                    contents=contents,
+                    config=types.GenerateContentConfig(**config_kwargs),
+                )
+                break
+            except Exception as exc:
+                err_msg = str(exc)
+                if ("429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg) and attempt < max_retries - 1:
+                    delay = 15.0
+                    match_sec = re.search(r"retry in (\d+(?:\.\d+)?)s", err_msg)
+                    if match_sec:
+                        delay = float(match_sec.group(1)) + 1.5
+                    else:
+                        match_delay = re.search(r"retryDelay['\"]?:\s*['\"]?(\d+)", err_msg)
+                        if match_delay:
+                            delay = float(match_delay.group(1)) + 1.5
+                    print(f"\n[Gemini 429] Đạt ngưỡng RPM, chờ {delay:.1f}s trước khi thử lại ({attempt + 1}/{max_retries})...", flush=True)
+                    time.sleep(delay)
+                else:
+                    raise
 
         text_parts: list[str] = []
         calls: list[ToolCall] = []
