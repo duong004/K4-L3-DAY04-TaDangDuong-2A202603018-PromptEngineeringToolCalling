@@ -97,7 +97,7 @@ Hạn mặc định là **23:59 ngày học, Asia/Ho_Chi_Minh (UTC+07:00)**. Xem
 
 Giao diện chat tương tác hỗ trợ quan sát trạng thái runtime, lịch sử gọi công cụ (tool call), tham số đầu vào (arguments), kết quả thực thi và tính năng lưu transcript minh chứng.
 
-1. Cài đặt Streamlit vào môi trường ảo hiện tại (không thay đổi `requirements.txt` gốc):
+1. Cài đặt Streamlit vào môi trường ảo hiện tại:
 ```powershell
 pip install streamlit
 
