@@ -1,7 +1,298 @@
 {
   "dataset_id": "day04_v3_helpdesk_group",
   "dataset_role": "group",
-  "description": "Template intentionally left empty. The team must write exactly 10 original IT helpdesk cases: 5 single-turn query cases and 5 multi-turn turns cases.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Original 10 IT helpdesk evaluation cases authored by the team: 5 single-turn and 5 multi-turn cases.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_policy_routing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tra cứu chính sách IT nội bộ về việc sử dụng công cụ bên ngoài (external tools).",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "policy_area": "external_tools"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "route_policy_inquiry",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu tra cứu chính sách công ty phải route vào policy tool với đúng policy_area."
+      }
+    },
+    {
+      "id": "G02_service_sso_staging",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dịch vụ SSO trên môi trường staging hiện tại có hoạt động bình thường không?",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "check_service_status",
+            "args": {
+              "service": "sso",
+              "environment": "staging"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "route_service_with_environment",
+        "difficulty": "easy",
+        "what_it_tests": "Kiểm tra đúng dịch vụ sso và giữ chính xác environment staging."
+      }
+    },
+    {
+      "id": "G03_missing_asset_hardware",
+      "phase": "B",
+      "suite": "group",
+      "query": "Bàn phím máy tính của mình bị liệt phím cách, nhờ IT kiểm tra phần cứng giúp.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_asset_id",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu chẩn đoán thiết bị nhưng thiếu mã tài sản phải dừng lại clarify hỏi asset ID."
+      }
+    },
+    {
+      "id": "G04_out_of_scope_weather",
+      "phase": "B",
+      "suite": "group",
+      "query": "Thời tiết hôm nay ở Hà Nội có mưa không bạn?",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope_rejection",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi thời tiết hoàn toàn ngoài phạm vi IT Helpdesk phải từ chối mà không gọi công cụ."
+      }
+    },
+    {
+      "id": "G05_parallel_user_and_status",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tra cứu thông tin tài khoản nhân viên EMP-1002 và kiểm tra trạng thái dịch vụ email production.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup_user",
+            "args": {
+              "employee_id": "EMP-1002"
+            }
+          },
+          {
+            "name": "check_service_status",
+            "args": {
+              "service": "email",
+              "environment": "production"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "parallel_user_and_status",
+        "difficulty": "hard",
+        "what_it_tests": "Thực hiện đồng thời hai công cụ độc lập lookup_user và check_service_status."
+      }
+    },
+    {
+      "id": "G06_multiturn_service_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Kiểm tra trạng thái dịch vụ SSO production."
+        },
+        {
+          "role": "user",
+          "content": "À đổi sang dịch vụ wifi giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Vẫn giữ môi trường production nhé."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "check_service_status",
+            "args": {
+              "service": "wifi",
+              "environment": "production"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_service_correction",
+        "difficulty": "medium",
+        "what_it_tests": "Kế thừa environment từ lượt trước nhưng cập nhật service mới nhất là wifi."
+      }
+    },
+    {
+      "id": "G07_multiturn_clarify_then_inspect",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Máy tính mình không vào được mạng, IT kiểm tra giúp."
+        },
+        {
+          "role": "user",
+          "content": "Mã tài sản của mình là LT-240."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ kiểm tra phần network trên đúng máy đó thôi."
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "inspect_device",
+            "args": {
+              "asset_id": "LT-240",
+              "check": "network"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_asset_clarification",
+        "difficulty": "medium",
+        "what_it_tests": "Thu thập mã máy sau khi làm rõ và trích xuất đúng tham số check network."
+      }
+    },
+    {
+      "id": "G08_multiturn_ticket_reconfirm",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tạo ticket lỗi máy in PR-404 mức low."
+        },
+        {
+          "role": "user",
+          "content": "Đổi mức ưu tiên thành high giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Hãy cho mình xem lại thông tin và hỏi xác nhận trước khi tạo."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_ticket_reconfirmation",
+        "difficulty": "hard",
+        "what_it_tests": "Khi thuộc tính ticket thay đổi, xác nhận cũ bị vô hiệu hóa và phải clarify xin xác nhận lại."
+      }
+    },
+    {
+      "id": "G09_multiturn_cancel_ticket",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tạo ticket hỗ trợ sự cố mạng cho máy LT-204."
+        },
+        {
+          "role": "user",
+          "content": "Dừng lại, mình tự khắc phục được rồi nên không tạo ticket nữa."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ cần xác nhận là bạn đã tiếp nhận yêu cầu hủy."
+        }
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "multiturn_cancel_ticket_action",
+        "difficulty": "hard",
+        "what_it_tests": "Người dùng hủy hành động ở lượt sau, mô hình tuyệt đối không gọi tool mà chỉ trả lời xác nhận."
+      }
+    },
+    {
+      "id": "G10_multiturn_switch_to_user",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Kiểm tra trạng thái dịch vụ printing production."
+        },
+        {
+          "role": "user",
+          "content": "Thôi không cần kiểm tra máy in nữa."
+        },
+        {
+          "role": "user",
+          "content": "Tra cứu thông tin tài khoản nhân viên EMP-1005 giúp mình."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup_user",
+            "args": {
+              "employee_id": "EMP-1005"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_latest_intent_lookup",
+        "difficulty": "hard",
+        "what_it_tests": "Chuyển hẳn ý định từ kiểm tra dịch vụ sang tra cứu nhân viên mà không gọi sót tool cũ."
+      }
+    }
+  ]
 }
