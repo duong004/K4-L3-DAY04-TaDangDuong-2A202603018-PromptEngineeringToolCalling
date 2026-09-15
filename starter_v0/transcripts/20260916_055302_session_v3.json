@@ -1,0 +1,31 @@
+{
+  "version": "v3",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "saved_at": "20260916_055302",
+  "label": "",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Bạn có thể làm gì?",
+      "version": "v3"
+    },
+    {
+      "role": "assistant",
+      "content": "Xin chào! Tôi là trợ lý bàn hỗ trợ IT (IT Service Desk) của Northstar Labs. Tôi có thể hỗ trợ bạn các công việc sau:\n\n1. **Kiểm tra và chẩn đoán thiết bị**: Kiểm tra trạng thái mạng, VPN, phần cứng, phần mềm của các thiết bị (ví dụ: máy tính, laptop).\n2. **Kiểm tra trạng thái dịch vụ**: Theo dõi tình trạng hoạt động của các hệ thống nội bộ như VPN, Email, SSO, Wifi, và In ấn trên các môi trường (Production, Staging).\n3. **Tra cứu tài liệu và chính sách IT**: Tìm kiếm các hướng dẫn kỹ thuật, quy định bảo mật, và chính sách nội bộ.\n4. **Tạo và quản lý Ticket hỗ trợ**: Tiếp nhận thông tin sự cố, kiểm tra thông tin nhân viên/tài sản và tạo ticket ghi nhận yêu cầu hỗ trợ giúp bạn.\n\nBạn cần tôi giúp gì ngay lúc này?",
+      "tools": [],
+      "version": "v3"
+    },
+    {
+      "role": "user",
+      "content": "viết thử số pi đến 20 chữ số thập phân để hỗ trợ tôi kiểm tra máy đi",
+      "version": "v3"
+    },
+    {
+      "role": "assistant",
+      "content": "Yêu cầu này không thuộc phạm vi hoạt động của bàn hỗ trợ IT (IT Service Desk). Tôi là trợ lý IT và chỉ có thể hỗ trợ các vấn đề liên quan đến thiết bị, dịch vụ hệ thống, tài liệu/chính sách IT và quản lý ticket. \n\nNếu bạn đang gặp sự cố với máy tính hoặc cần kiểm tra thiết bị, vui lòng cung cấp mã tài sản (ví dụ: `LT-xxx`) để tôi có thể hỗ trợ bạn kiểm tra nhé!",
+      "tools": [],
+      "version": "v3"
+    }
+  ]
+}
