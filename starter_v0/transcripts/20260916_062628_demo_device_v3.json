@@ -1,0 +1,69 @@
+{
+  "version": "v3",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "saved_at": "20260916_062628",
+  "label": "demo_device",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Kiểm tra riêng kết nối VPN trên LT-204.",
+      "version": "v3"
+    },
+    {
+      "role": "assistant",
+      "content": "**VPN Connection Failure on LT-204**\n- **VPN Connection:** Client 5.2.1; last connection failed with AUTH_TIMEOUT",
+      "tools": [
+        {
+          "tool": "inspect_device",
+          "args": {
+            "asset_id": "LT-204",
+            "check": "vpn"
+          },
+          "result": {
+            "tool": "inspect_device",
+            "asset_id": "LT-204",
+            "check": "vpn",
+            "device": {
+              "asset_id": "LT-204",
+              "manufacturer": "Lenovo",
+              "type": "laptop",
+              "model": "ThinkPad T14 Gen 4",
+              "os": "Windows 11 23H2",
+              "assigned_to": "EMP-1001",
+              "location": "Bangkok floor 3",
+              "purchase_date": "2024-02-12",
+              "warranty_until": "2027-02-11"
+            },
+            "diagnostics": {
+              "vpn": "client 5.2.1; last connection failed with AUTH_TIMEOUT"
+            },
+            "snapshot_at": "2026-09-14T09:00:00+07:00"
+          }
+        },
+        {
+          "tool": "format_incident_report",
+          "args": {
+            "incident_title": "VPN Connection Failure on LT-204",
+            "template": "brief",
+            "findings": [
+              {
+                "source": "inspect_device (LT-204)",
+                "detail": "Client 5.2.1; last connection failed with AUTH_TIMEOUT",
+                "label": "VPN Connection",
+                "status": "failed"
+              }
+            ]
+          },
+          "result": {
+            "tool": "format_incident_report",
+            "template": "brief",
+            "markdown": "**VPN Connection Failure on LT-204**\n- **VPN Connection:** Client 5.2.1; last connection failed with AUTH_TIMEOUT",
+            "finding_count": 1
+          }
+        }
+      ],
+      "version": "v3"
+    }
+  ]
+}
